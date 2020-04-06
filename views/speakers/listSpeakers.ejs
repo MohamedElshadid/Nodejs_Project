@@ -1,0 +1,66 @@
+<%- include("../header/navbar") -%>
+<html lang="en">
+    <%- include("../header/head") -%>
+    <style>
+        .background{
+            background-image:url("../images/abstract-art-black-background-blur-1040499.jpg");
+            -webkit-background-size: cover;
+            -mozt-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+    <body class="background">
+        <div class="container ">
+                <table class="table table-hover table-dark mt-5">
+                    <thead>
+                        <tr>
+                          <th class="text-success">ID</th>
+                            <th class="text-primary">Name</th>
+                            <th class="text-primary">Age</th>
+                            <th class="text-info">Address</th>
+                            <th class="text-success">Profile Image</th>
+                            <th class="text-warning">Edit</th>
+                            <th class="text-danger">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                <%speaker.forEach((element)=> {%>   
+            
+                    <tr>
+                        <td><%=element._id%></td>
+                        <td><%=element.name%></td>
+                        <td><%=element.age%></td>
+                        <td>city: <%=element.address.city%> / Street: <%=element.address.street%> / Building: <%=element.address.building%></td>
+                        <td><img src="../images/<%= element.image.name %>" style="width:150px;height: 150px;"></td>
+                        <td><a class="bg-primary text-light p-1" href="/speakers/update/<%=element._id%>">edit</a></td>
+                        <td><a class="btn-danger text-light p-1" href="#" onclick="deleteSpeaker(<%=element._id%> , this)">delete</a></td>
+                        
+                      </tr>
+                
+                      <%})%>
+                    </tbody>
+                </table>
+        </div>
+
+        <%- include("../header/script") -%>
+        <script>
+            function deleteSpeaker(ID,object)
+        {
+            $.ajax({
+                url:"http://localhost:8083/speakers/delete/"+ID,
+                method:"get",
+                dataType:"text",
+                success(data){
+                    console.log(data);
+                    $(object).parents("tr").remove();
+                },
+                error(error){
+        
+                }
+                
+            })
+        }
+        </script>
+    </body>
+    </html>

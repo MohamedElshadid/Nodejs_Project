@@ -1,0 +1,23 @@
+<%- include("../header/navbar") -%>
+<html lang="en">
+    <%- include("../header/head") -%>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <body class="background">
+        <div class="container ">
+            <form action="/speakers/update"  method="POST" class="text-center mt-5">
+                <h1 style="color: teal;">Edit Speakers</h1>
+               <input class="form-control" type="text" name="name" value="<%=profile.name%>"  readonly style="width: 50%;margin: auto;"><br>
+               <input class="form-control" type="number" name="age" value="<%=profile.age%>" placeholder="your age" required style="width: 50%;margin: auto;"><br>
+               <input class="form-control" type="password" readonly name="password" value="<%=profile.password%>" placeholder="password" required style="width: 50%;margin: auto;"><br>
+               <input class="form-control"  type="text" name="address.city" value="<%=profile.address.city%>"  placeholder="city" required style="width: 50%;margin:5px auto;">
+               <input class="form-control" type="number" name="address.street"  value="<%=profile.address.street%>" placeholder="street" required style="width: 50%;margin:5px auto;">
+               <input class="form-control"  type="number" name="baddress.uilding"  value="<%=profile.address.building%>" placeholder="buildingNo" required style="width: 50%;margin:5px auto;"><br>
+               <input class="form-control bg-primary text-light"  type="submit" name="" style="width: 50%;margin: auto;"><br>
+        
+            </form>
+        </div>
+    
+        <%- include("../header/script") -%>
+    </body>
+    </html>

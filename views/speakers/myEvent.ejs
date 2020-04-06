@@ -1,0 +1,71 @@
+<%- include("../header/navSpeaker") -%>
+<html lang="en">
+    <%- include("../header/head") -%>
+    <style>
+      .background{
+          background-image:url("../images/abstract-art-black-background-blur-1040499.jpg");
+          -webkit-background-size: cover;
+          -mozt-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;
+      }
+      .founded{
+            color: #52aa5d;
+            font-size: 18px;
+            font-weight: bold;
+        }
+  </style>
+    <body class="background">
+        <div class="container mt-5">
+            <table class="table table-dark">
+                <thead>
+                  <tr>
+                    <th class="text-info" scope="col">title</th>
+                    <th class="text-success" scope="col">eventDate</th>
+                    <th class="text-primary" scope="col">mainspeaker</th>
+                    <th class="text-info" scope="col">otherspeaker</th>
+                </thead>
+                <tbody>
+                  <% event.forEach((element) =>{ %>
+                    
+                    <% if(element.mainSpeaker){ %>
+                    <% if(locals.Name == element.mainSpeaker.name){ %>
+                        <tr class="founded">
+                    <% }else{ %>
+                        <tr>
+                    <% } %> 
+                    <%}else{ %>
+                    <tr>
+                    <% }%>
+                        <td><%= element.title %></td>
+                        <% if(element.eventData){ %>
+                          <td><%= element.eventData.toDateString() %></td>
+                      <% }else{ %>
+                          <td class="text-danger">No Date yet</td>
+                      <% } %>
+                        <% if (element.mainSpeaker) { %>
+                            <td><%=element.mainSpeaker.name%></td>
+                        <% }else { %>
+                            <td class="text-danger">Empty</td>
+                        <%} %>
+                        <td>
+                            <ul>
+                                <% if(element.otherSpeakers.length == 0){ %>
+                                    <li class="text-danger">Empty</li>
+                                <% }else {%>
+                                    
+                                <%element.otherSpeakers.forEach((element)=>{ %>
+                                    <% if (element) { %>
+                                        <li><%=element.name%></li>
+                                    <% }%>
+                                <% })} %>
+                            </ul>
+                        </td>
+                    </tr>
+                <% }) %>
+                </tbody>
+        </div>
+
+        <%- include("../header/script") -%>
+    </body>
+    </html>

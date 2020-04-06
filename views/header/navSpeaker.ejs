@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header/head") -%>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/speakers/profile">Profile</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/speakers/showEvent">MY Events</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link btn-danger" style='border-radius:10px;margin-right:10px' href="/logout">LogOut</a>
+        </li>
+        <span class="text-warning" style="padding: 4px;margin: 4px;font-weight: bold;border: 1px solid red;">Welcome <%=locals.Name%></span>
+      </ul>
+    </div>
+  </nav> 
+  <%- include("../header/script") -%>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<%- include("../header/navbar") -%>
+<html lang="en">
+    <%- include("../header/head") -%>
+    <style>
+        .background{
+            background-image:url("../images/abstract-art-black-background-blur-1040499.jpg");
+            -webkit-background-size: cover;
+            -mozt-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+    <body class="background">
+        <div class="container mt-5">
+
+            <form method="POST" action="/events/add">
+                 
+                <h2 class="text-danger">Add Event</h2>
+                
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="title" id="first_name" class="form-control " style="width: 400px;" placeholder="event title" >
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <input type="date" name="eventData" id="last_name" class="form-control" style="width: 400px;" placeholder="event date" >
+                        </div>
+                    </div>
+                </div>
+
+                <select name="mainSpeaker" class="form-control form-group" style="width: 200px;" id="exampleFormControlSelect1">
+                   
+                    <% speaker.forEach(sp => { %>
+                        <option  value="<%=sp._id%>"> <%=sp.name%></option>
+                    <% }) %>
+                  </select>
+                  <br>
+                  <br>
+              
+                <select name="otherSpeakers" multiple class="form-control form-group" style="width: 200px;" id="exampleFormControlSelect2">
+                    
+                                
+                        <% speaker.forEach(sp => { %>
+                            <option value="<%=sp._id%>"><%=sp.name%></option>   
+                        <% }) %>
+
+                   
+                  </select>
+
+                
+               
+                <div class="row">
+                    
+                    <div class="col-xs-12"><button class=" btn bg-primary ml-4" type="submit">submit</button></div>
+                
+                </div>
+            </form>
+        </div>
+    
+        <%- include("../header/script") -%>
+    </body>
+    </html>

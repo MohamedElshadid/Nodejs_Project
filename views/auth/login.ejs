@@ -1,0 +1,18 @@
+<html>
+
+    <%- include("../header/head") -%>
+    <link rel="stylesheet" href="/css/style.css">
+<body class="background">
+    <div class="container mt-5">
+        <h3 class="text-danger text-center" style="text-shadow: 0px 1px white;"><%=msg%></h3> 
+        <form action="/login" method="post">
+            <input type="text" name="name"   class=" form-control" placeholder="Username" placeholder="" required>
+              <input type="password" name="password" id="" class="form-control  " placeholder="Password" placeholder="" required>
+             <a href="/login">  <input type="submit"  value="Login" class="form-control  btn btn-primary" style="margin-left: 25%;width: 20%;"></a> 
+             <a href="/register">  <input type="button" value="Register" class="form-control btn btn-secondary " style="margin-left: 8%;width: 20%;" ></a> 
+        </form>
+    </div>
+    <%- include("../header/script") -%>
+</body>
+
+</html>

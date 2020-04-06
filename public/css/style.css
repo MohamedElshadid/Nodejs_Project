@@ -1,0 +1,15 @@
+/*Start Login */
+.background{
+    background-image:url("../images/abstract-art-black-background-blur-1040499.jpg");
+    -webkit-background-size: cover;
+    -mozt-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+}
+.form-control
+{
+    margin: 10px auto;
+    width: 50%;
+}
+/*End Login */

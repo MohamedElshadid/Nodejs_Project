@@ -1,0 +1,84 @@
+<%- include("../header/navbar") -%>
+<html lang="en">
+    <%- include("../header/head") -%>
+    <style>
+      .background{
+          background-image:url("../images/abstract-art-black-background-blur-1040499.jpg");
+          -webkit-background-size: cover;
+          -mozt-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;
+      }
+  </style>
+    <body class="background">
+        <div class="container mt-5">
+            <table class="table table-dark">
+                <thead>
+                  <tr>
+                    <th class="text-primary" scope="col">id</th>
+                    <th class="text-info" scope="col">title</th>
+                    <th class="text-success" scope="col">eventDate</th>
+                    <th class="text-primary" scope="col">mainspeaker</th>
+                    <th class="text-info" scope="col">otherspeaker</th>
+                    <th class="text-warning " scope="col">edit</th>
+                    <th class="text-danger" scope="col">delete</th>
+        
+                  </tr>
+                  <% event.forEach(element => { %>
+                        <tr>
+                            <td><%= element._id %></td>
+                            <td><%= element.title %></td>
+                            <% if(element.eventData){ %>
+                                <td><%= element.eventData.toDateString() %></td>
+                            <% }else{ %>
+                                <td class="text-danger">You Didn't Enter any Date</td>
+                            <% } %>
+                            <% if (element.mainSpeaker) { %>
+                                <td><%=element.mainSpeaker.name%></td>
+                            <% }else { %>
+                                <td class="text-danger">Empty</td>
+                            <%} %>
+                            <td>
+                                <ul>
+                                    <% if(element.otherSpeakers.length == 0){ %>
+                                        <li class="text-danger">Empty</li>
+                                    <% }else {%>
+                                        
+                                    <%element.otherSpeakers.forEach((element)=>{ %>
+                                        <% if (element) { %>
+                                            <li><%=element.name%></li>
+                                        <% }%>
+                                    <% })} %>
+                                </ul>
+                            </td>
+                            <td><a class="bg-primary text-light p-1" href="/events/update/<%=element._id%>">edit</a></td>
+                            <td><a class="btn-danger text-light p-1" href="#" onclick="deleteEvent(<%=element._id%> , this)">delete</a></td>
+                        </tr>
+        
+                  <%}); %> 
+                </thead>
+                <tbody>
+                </tbody>
+        </div>
+
+        <%- include("../header/script") -%>
+        <script>
+            function deleteEvent(ID,object)
+        {
+            $.ajax({
+                url:"http://localhost:8082/events/delete/"+ID,
+                method:"get",
+                dataType:"text",
+                success(data){
+                    console.log(data);
+                    $(object).parents("tr").remove();
+                },
+                error(error){
+        
+                }
+                
+            })
+        }
+        </script>
+    </body>
+    </html>

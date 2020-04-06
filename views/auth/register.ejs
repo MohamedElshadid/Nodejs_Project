@@ -1,0 +1,22 @@
+
+<html lang="en">
+    <%- include("../header/head") -%>
+    <link rel="stylesheet" href="/css/style.css">
+    <body class="background">
+        <div class="container ">
+            <form action="/register"  method="post" class="text-center mt-5">
+                <h1 style="color: teal;">Registration Form</h1>
+               <input class="form-control" type="text" name="name" placeholder="firstname" required style="width: 50%;margin: auto;"><br>
+               <input class="form-control" type="number" name="age" placeholder="your age" required style="width: 50%;margin: auto;"><br>
+               <input class="form-control" type="password" name="password" placeholder="password" required style="width: 50%;margin: auto;"><br>
+               <input class="form-control"  type="text" name="address.city"  placeholder="city" required style="width: 50%;margin:5px auto;">
+               <input class="form-control" type="number" name="address.street" placeholder="street" required style="width: 50%;margin:5px auto;">
+               <input class="form-control"  type="number" name="address.building" placeholder="buildingNo" required style="width: 50%;margin:5px auto;"><br>
+               <input class="form-control bg-primary text-light"  type="submit" name="" style="width: 50%;margin: auto;"><br>
+        
+            </form>
+        </div>
+    
+        <%- include("../header/script") -%>
+    </body>
+    </html>
