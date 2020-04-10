@@ -1,10 +1,13 @@
 mongoose = require("mongoose");
 let auto = require("mongoose-auto-increment");
 speakerSchema= new mongoose.Schema({
-    name:String,
+    name:{type:String},
     age:Number,
-    password:{ type: String,  bcrypt: true },
+    password:{ type: String },
     image:{ data: Buffer, contentType: String,name:String },
+    avatar:{
+        type:String
+    },
     address:{
         city:String,
         street:Number,

@@ -11,7 +11,7 @@
                         <% if(profile.image.name){ %>
                             <img src="/images/<%=profile.image.name%>" style="width: 130px;height: 130px;border-radius: 50%; margin: 0 auto;" class="card-img-top" alt="...">
                         <% }else{ %>
-                            <img src="/images/1.jpg">
+                            <img src="/images/<%=profile.avatar%>">
                         <% } %>
                         <ul class="list-group list-group-flush" >
                           <li class="list-group-item text-danger" style="background-color: #000;">UserName :<span class="text-success"> <%=profile.name%></span> </li>

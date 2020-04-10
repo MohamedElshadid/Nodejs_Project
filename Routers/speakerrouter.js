@@ -3,6 +3,7 @@ const mongoose=require("mongoose");
 const speakerRouter=express.Router();
 require("../Models/speakerModel");
 require("../Models/eventModel");
+const bcrypt = require('bcryptjs');
 let eventModels=mongoose.model("events");
 let speakerModels=mongoose.model("speakers");
 multer = require("multer");
@@ -31,24 +32,30 @@ speakerRouter.use((request,response,next)=>
         response.render("speakers/addspeakers");
         
     });//add
-    speakerRouter.post("/add",multerMW.single("image"),(request,response)=>{
-        let speaker =new speakerModels({
-            "name": request.body.name,
-            "age": request.body.age,
-            "password": request.body.password,
-            "address.city": request.body.city,
-            "address.street": request.body.street,
-            "address.building": request.body.building,
-            image: { name: request.file.filename }
-            
-        });
-        speaker.save().then((data)=>{
-            console.log(data);
-            response.redirect("/speakers/list");
-        })
-        .catch((error)=>{
-            console.log(error+"");
-        })
+    speakerRouter.post("/add",multerMW.single("image"),async (request,response)=>{
+        const password = request.body.password;
+        try {
+            let speaker =new speakerModels({
+                "name": request.body.name,
+                "age": request.body.age,
+                password,
+                "address.city": request.body.city,
+                "address.street": request.body.street,
+                "address.building": request.body.building,
+                image: { name: request.file.filename }
+                
+            });
+
+        const salt = await bcrypt.genSalt(10);
+
+        speaker.password = await bcrypt.hash(password, salt);
+
+        await speaker.save();
+        response.redirect("/speakers/list");
+        } catch(err) {
+        console.error(err.message);
+        }
+
     });//add
     speakerRouter.get("/delete/:_id",(request,response)=>{
         speakerModels.deleteOne({ _id: request.params._id }).then((date)=>{

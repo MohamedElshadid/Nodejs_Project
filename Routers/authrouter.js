@@ -2,8 +2,15 @@ const express=require("express");
 mongoose = require("mongoose");
 let path=require("path");
 const authRouter=express.Router();
+const gravatar = require('gravatar');
 require("../Models/speakerModel");
+const bcrypt = require('bcryptjs');
 let speakerModels=mongoose.model("speakers");
+multer = require("multer");
+let fs = require('fs');
+let multerMW = multer({
+    dest: "./public/images"
+});
 
 
 authRouter.get("/login",(request,response)=>{
@@ -60,36 +67,42 @@ authRouter.post("/login",(request,response)=>{
 authRouter.get("/register",(request,response)=>{
     response.render("auth/register");
 });
-authRouter.post("/register",(request,response)=>{
-    speakerModels.findOne({name:request.body.name}).then((data)=>{
-        let exists =false;
-        if((request.body.password,123)||(request.body.password,data.password)){
-            exists=true;
-        }
-        if(data != null)
-        {
-            if((data.name==request.body.name)&&exists)
-            {   
-                request.flash("msg","Plz Enter another Name");
-                response.redirect("/login");
-                
-            }
-        } else {
-            let speaker =new speakerModels(request.body);
-            speaker.save().then((data)=>{
-                response.redirect("/login");
-            })
-            .catch((error)=>{
-                console.log(error+"");
-            })
-            
-            
-        }
-    })
-    .catch((error)=>{
-        console.log(error+"")
+authRouter.post("/register",multerMW.single("image"),async (request,response)=>{
+    const password = request.body.password;
+    const name = request.body.name;
 
-    })
+    try {
+            const avatar = gravatar.url(name, {
+                s: '200',
+                r: 'pg',
+                d: 'mm'
+            })
+ 
+            let speaker2 =new speakerModels({
+                name,
+                "age": request.body.age,
+                password,
+                avatar,
+                "address.city": request.body.city,
+                "address.street": request.body.street,
+                "address.building": request.body.building,
+                
+            });
+    
+            const salt = await bcrypt.genSalt(10);
+    
+            speaker2.password = await bcrypt.hash(password, salt);
+    
+            await speaker2.save();
+            response.redirect("/login");
+
+    } catch(err) {
+
+        console.error(err.message);
+    }
+    
+        
+
 });
 authRouter.get("/logout",(request,response)=>{
     request.session.destroy(()=>

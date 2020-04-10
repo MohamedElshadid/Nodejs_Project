@@ -32,7 +32,12 @@
                         <td><%=element.name%></td>
                         <td><%=element.age%></td>
                         <td>city: <%=element.address.city%> / Street: <%=element.address.street%> / Building: <%=element.address.building%></td>
-                        <td><img src="../images/<%= element.image.name %>" style="width:150px;height: 150px;"></td>
+                        <% if(element.image.name){ %>
+                            <td><img src="../images/<%= element.image.name %>" style="width:150px;height: 150px;"></td>
+                        <% }else{ %>
+                           <td><img src="<%=element.avatar%>"> </td>
+                        <% } %>
+                        
                         <td><a class="bg-primary text-light p-1" href="/speakers/update/<%=element._id%>">edit</a></td>
                         <td><a class="btn-danger text-light p-1" href="#" onclick="deleteSpeaker(<%=element._id%> , this)">delete</a></td>
                         
